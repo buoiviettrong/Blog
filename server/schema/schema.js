@@ -27,7 +27,7 @@ const typeDefs = gql `
         user(id: ID!): User
     }
 
-    # nhap du lieu 
+    # chinh sua du lieu 
     type Mutation {     
         createUser(fullName: String, avatar: String, email: String) : User
         updateUser(id: ID!, fullName: String, avatar: String, email: String) : User 
