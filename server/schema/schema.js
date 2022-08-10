@@ -30,10 +30,12 @@ const typeDefs = gql `
     # nhap du lieu 
     type Mutation {     
         createUser(id: ID!, fullName: String, avatar: String, email: String) : User
-        updateUser(id: ID!, fullName: String, avatar: String, email: String) : User
+        updateUser(id: ID!, fullName: String, avatar: String, email: String) : User 
         deleteUser(id: ID!): Boolean
 
         createPost(id: ID!, title: String, description: String, user_id: ID!) : Post
+        updatePost(id: ID!, title: String, description: String, user_id: ID!) : Post
+        deletePost(id: ID!): Boolean
     }
 `
 
