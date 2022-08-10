@@ -6,6 +6,7 @@ const typeDefs = gql `
         id: ID
         title: String
         description: String
+        user: User
     }
 
     type User {
@@ -13,12 +14,19 @@ const typeDefs = gql `
         fullName: String
         avatar: String
         email: String
+        posts: [Post]
     }
 
     # ROOT TYPE
     type Query {
         posts: [Post]
+        post(id: ID!): Post
         users: [User]
+        user(id: ID!): User
+
+        # Matching
+
+
     }
 `
 
