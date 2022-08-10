@@ -10,6 +10,10 @@ dotenv.config();
 const typeDefs = require('./schema/schema')
 const resolvers = require('./resolver/resolver')
 
+// Load db methods
+
+const mongoDataMethods = require('./data/db')
+
 // Connect to MongoDB
 const MONGODB_URL = 'mongodb+srv://nghiapro:zTJPB3kDokzAc55f@miniblogwithgrahpql.rglifix.mongodb.net/MiniBlogWithGrahpQL?retryWrites=true&w=majority'
 const URI = process.env.MONGODB_URL
@@ -26,7 +30,11 @@ const connectDB = async() => {
 
 connectDB()
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: () => ({ mongoDataMethods })
+})
 
 const app = express()
 

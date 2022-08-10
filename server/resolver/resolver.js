@@ -1,31 +1,34 @@
 const { posts, users } = require('../data/static')
 
+const User = require('../models/userModel')
+const Post = require('../models/postModel')
+
 // Ham tra du lieu that su 
 
 const resolvers = {
     // Query
     Query: {
-        posts: () => posts,
-        post: (parent, args) => posts.find(p => p.id.toString() === args.id),
-        users: () => users,
-        user: (parent, args) => users.find(u => u.id.toString() === args.id),
+        posts: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.getAllPost(),
+        post: async(parent, { id }, { mongoDataMethods }) => await mongoDataMethods.getPostById(id),
+        users: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.getAllUser(),
+        user: async(parent, { id }, { mongoDataMethods }) => await mongoDataMethods.getUserById(id),
     },
     Post: {
-        user: (parent, args) => users.find(u => u.id.toString() === parent.user_id.toString()),
+        user: async({ user_id }, args, { mongoDataMethods }) => await mongoDataMethods.getUserById(user_id),
     },
     User: {
-        posts: (parent, args) => posts.filter(p => p.user_id.toString() === parent.id.toString()),
+        posts: async({ id }, args, { mongoDataMethods }) => await mongoDataMethods.getAllPost({ user_id: id }),
     },
 
     // Mutation
     Mutation: {
-        createUser: (parent, args) => args,
-        // updateUser: (parent, args) => posts.update(args.id, args.user),
-        // deleteUser: (parent, args) => posts.remove(args.id),
+        createUser: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.createUser(args),
+        updateUser: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.updateUser(args),
+        deleteUser: async(parent, { id }, { mongoDataMethods }) => await mongoDataMethods.deleteUser(id),
 
-        createPost: (parent, args) => args,
-        // updatePost: (parent, args) => posts.update(args.id, args.post),
-        // deletePost: (parent, args) => posts.remove(args.id),
+        createPost: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.createPost(args),
+        updatePost: async(parent, args, { mongoDataMethods }) => await mongoDataMethods.updatePost(args),
+        deletePost: async(parent, { id }, { mongoDataMethods }) => await mongoDataMethods.deletePost(id),
     }
 }
 

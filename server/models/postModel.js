@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { create } = require('./userModel');
 
 const Schema = mongoose.Schema
 
@@ -10,7 +11,7 @@ const postSchema = new Schema({
         type: String,
     },
     user_id: {
-        type: email,
+        type: String,
     },
 })
 
