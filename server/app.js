@@ -15,12 +15,12 @@ const resolvers = require('./resolver/resolver')
 const mongoDataMethods = require('./data/db')
 
 // Connect to MongoDB
-const MONGODB_URL = 'mongodb+srv://nghiapro:zTJPB3kDokzAc55f@miniblogwithgrahpql.rglifix.mongodb.net/MiniBlogWithGrahpQL?retryWrites=true&w=majority'
+// const MONGODB_URL = 'mongodb+srv://nghiapro:zTJPB3kDokzAc55f@miniblogwithgrahpql.rglifix.mongodb.net/MiniBlogWithGrahpQL?retryWrites=true&w=majority'
 const URI = process.env.MONGODB_URL
 
 const connectDB = async() => {
     try {
-        await mongoose.connect(MONGODB_URL)
+        await mongoose.connect(URI)
         console.log('MongoDB connected')
     } catch (error) {
         console.log(error.message)
