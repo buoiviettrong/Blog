@@ -9,8 +9,16 @@ const mongoDataMethods = {
     getAllPost: async(condition = null) => condition === null ? await Post.find() : await Post.find(condition),
     getPostById: async(id) => await Post.findById(id),
     createPost: async(args) => {
-        const newPost = new Post(args);
-        return await newPost.save();
+        const post = await Post.find({ title: args.title })
+
+        if (!post) {
+            const newPost = new Post(args);
+            return await newPost.save();
+        } else {
+            const temp = { id: -1 }
+            return temp
+        }
+
     },
     updatePost: async(args) => {
         const { id, title, description, user_id } = args
@@ -29,8 +37,15 @@ const mongoDataMethods = {
     getAllUser: async() => await User.find(),
     getUserById: async(id) => await User.findById(id),
     createUser: async(args) => {
-        const newUser = new User(args);
-        return await newUser.save()
+        const user = await User.find({ email: args.email })
+
+        if (!user) {
+            const newUser = new User(args);
+            return await newUser.save()
+        } else {
+            const temp = { id: -1 }
+            return temp
+        }
     },
     updateUser: async(args) => {
         const { id, fullName, avatar, email } = args
