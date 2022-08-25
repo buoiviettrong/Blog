@@ -40,7 +40,7 @@ const app = express()
 server.start().then(res => {
     server.applyMiddleware({ app })
 
-    app.listen({ port: 4000 }, () => {
-        console.log(`Listening on port http://localhost:4000${server.graphqlPath}`)
+    app.listen({ port: 4001 }, () => {
+        console.log(`Listening on port http://localhost:4001${server.graphqlPath}`)
     })
 })
